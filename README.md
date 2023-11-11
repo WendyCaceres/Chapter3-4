@@ -28,14 +28,14 @@ terquedad, etc.
 En este capítulo, repasaremos algunos consejos útiles y presentaremos un marco sencillo y eficaz para resolver los problemas de las entrevistas de diseño de sistemas.
 
 
-#Un proceso de 4 pasos para una entrevista entrevista
+# Un proceso de 4 pasos para una entrevista entrevista
 
 
 Cada entrevista de diseño de sistemas es diferente. Una buena entrevista de diseño de sistemas es abierta y no existe una solución única. Sin embargo, hay
 pasos y puntos en común que deben cubrirse en todas las entrevistas de diseño de sistemas.
 
 
-#Paso 1 - Entender el problema y establecer el alcance del diseño
+# Paso 1 - Entender el problema y establecer el alcance del diseño
 
 
 "¿Por qué ha rugido el tigre?
