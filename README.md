@@ -436,3 +436,71 @@ El algoritmo del cubo de fichas toma dos parámetros:
 150 amigos por día, y como 5 mensajes por segundo, 3 cubos son necesarios para
 cada usuario.
 
+-Si tenemos que limitar las solicitudes en función de las direcciones IP, cada dirección IP requiere un cubo.
+
+- Si el sistema permite un máximo de 10.000 peticiones por segundo, tiene sentido tener un cubo global compartido por todas las peticiones.
+  
+Ventajas:
+
+- El algoritmo es fácil de implementar.
+  
+- Uso eficiente de la memoria.
+  
+- El cubo de peticiones permite una ráfaga de tráfico durante periodos cortos. Una petición puede pasar mientras queden tokens.
+  
+Contras:
+
+- Dos parámetros del algoritmo son el tamaño del cubo y la tasa de rellenado de tokens.
+Sin embargo, puede resultar difícil ajustarlos correctamente.
+
+# Algoritmo de cubo con fugas
+
+El algoritmo de cubo con fugas es similar al de cubo de tokens, excepto en que las peticiones se procesan a un ritmo fijo. Suele implementarse con una cola FIFO (primero en entrar, primero en salir). El algoritmo funciona de la siguiente manera: 
+
+- Cuando llega una solicitud, el sistema comprueba si la cola está llena. Si no está
+llena, la solicitud se añade a la cola.
+
+- En caso contrario, se descarta.
+  
+- Las solicitudes se sacan de la cola y se procesan a intervalos regulares.
+  
+La figura 4-7 explica el funcionamiento del algoritmo.
+
+(Mapa)Primer plano de un mapa Descripción generada automáticamente
+
+El algoritmo Leaking Bucket toma los dos parámetros siguientes:
+
+- Tamaño del cubo: es igual al tamaño de la cola. La cola contiene las solicitudes que
+procesar a un ritmo fijo.
+
+- Tasa de salida: define cuántas solicitudes pueden procesarse a una tasa fija, normalmente en segundos.
+
+Shopify, una empresa de comercio electrónico, utiliza leaky buckets para limitar la tasa [7].
+
+Ventajas:
+
+- Eficiencia de memoria dado el tamaño limitado de la cola.
+  
+- Las solicitudes se procesan a un ritmo fijo, por lo que es adecuado para casos de uso
+en los que se necesita una tasa de salida estable.
+
+Contras:
+
+- Una ráfaga de tráfico llena la cola de solicitudes antiguas y, si no se procesan a tiempo, las solicitudes recientes se verán afectadas por una limitación.
+  
+-Hay dos parámetros en el algoritmo. Puede que no sea fácil sintonizar ellos adecuadamente.
+
+# Algoritmo de contador de ventana fija
+
+El algoritmo de contador de ventana fija funciona de la siguiente manera:
+
+- El algoritmo divide la línea de tiempo en ventanas de tiempo de tamaño fijo y asigna
+un contador para cada ventana.
+
+- Cada solicitud incrementa el contador en uno.
+  
+- Una vez que el contador alcanza el umbral predefinido, se descartan nuevas peticiones hasta que se inicia una nueva ventana temporal.
+
+Utilicemos un ejemplo concreto para ver cómo funciona. En la Figura 4-8, la unidad
+es de 1 segundo y el sistema permite un máximo de 3 peticiones por segundo. En cada ventana de segundos, si se reciben más de 3 peticiones, se descartan las peticiones adicionales, como se muestra en la figura 4-8.
+
