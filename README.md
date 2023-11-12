@@ -542,7 +542,7 @@ Las marcas de tiempo obsoletas se definen como aquellas más antiguas que el ini
 - Añada la marca de tiempo de la nueva solicitud al registro.
   
 - Si el tamaño del registro es igual o inferior al recuento permitido, se acepta la solicitud. En caso contrario, se rechaza.
-- 
+  
 Explicamos el algoritmo con un ejemplo, como se muestra en la Figura 4-10.
 
 (Imagen)Un primer plano de texto sobre fondo blanco Descripción automáticamente
