@@ -845,3 +845,33 @@ recuperarse de las excepciones.
   
 Enhorabuena por haber llegado hasta aquí. Ahora date una palmadita en la espalda.
 Buen trabajo!!.
+
+Materiales de referencia
+
+[1] Estrategias y técnicas de limitación de velocidad:
+
+https://cloud.google.com/solutions/rate-limiting-strategies-techniques
+[2] Límites de velocidad en Twitter: https://developer.twitter.com/en/docs/basics/ratelimits
+[3] Límites de uso de Google Docs: https://developers.google.com/docs/api/limits
+[4] Microservicios de IBM: https://www.ibm.com/cloud/learn/microservices
+[5] Acelerar las peticiones API para mejorar el rendimiento:
+https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-request-throttling.html
+[6] Limitadores de tarifa de Stripe: https://stripe.com/blog/rate-limiters
+[7] Límites de tasa de la API REST Admin de Shopify:
+https://help.shopify.com/en/api/reference/rest-admin-api-rate-limits
+[8] Mejor limitación de velocidad con Redis Sorted Sets:
+https://engineering.classdojo.com/blog/2015/02/06/rolling-rate-limiter/
+[9] Diseño del sistema - Limitador de tarifa y modelado de datos:
+https://medium.com/@saisandeepmopuri/system-design-rate-limiter-anddata-modelling-9304b0d18250
+[10] Cómo creamos un limitador de velocidad capaz de escalar a millones de dominios:
+https://blog.cloudflare.com/counting-things-a-lot-of-different-things/
+[11] Sitio web de Redis: https://redis.io/
+[12] Limitación de velocidad de Lyft: https://github.com/lyft/ratelimit
+[13] Cómo escalar tu API con limitadores de tasa:
+https://gist.github.com/ptarjan/e38f45f2dfe601419ca3af937fff574d#request
+-limitador de velocidad
+[14] Qué es edge computing:
+https://www.cloudflare.com/learning/serverless/glossary/what-is-edgecomputing/
+[15] Limitación de velocidad de solicitudes con Iptables: https://blog.programster.org/ratelimit-requests-with-iptables
+[16] Modelo OSI:
+https://en.wikipedia.org/wiki/OSI_model#Layer_architecture
