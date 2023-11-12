@@ -504,3 +504,58 @@ un contador para cada ventana.
 Utilicemos un ejemplo concreto para ver cómo funciona. En la Figura 4-8, la unidad
 es de 1 segundo y el sistema permite un máximo de 3 peticiones por segundo. En cada ventana de segundos, si se reciben más de 3 peticiones, se descartan las peticiones adicionales, como se muestra en la figura 4-8.
 
+(Captura)Captura de pantalla de un móvil Descripción generada automáticamente
+
+Un problema importante de este algoritmo es que una ráfaga de tráfico en los bordes de
+ventanas de tiempo podría hacer que pasasen más peticiones de la cuota permitida.
+Considere el siguiente caso:
+
+(Captura)Captura de pantalla de una publicación en redes sociales Descripción generada automáticamente.
+
+En la Figura 4-9, el sistema permite un máximo de 5 peticiones por minuto, y
+la cuota disponible se restablece en el minuto redondo para humanos. Como se ve
+hay cinco solicitudes entre las 2:00:00 y las 2:01:00 y cinco solicitudes más
+entre las 2:01:00 y las 2:02:00. En la ventana de un minuto entre las 2:00:30
+y las 2:01:30, pasan 10 peticiones. Es decir, el doble de las permitidas.
+
+Ventajas:
+
+- Memoria eficiente.
+  
+- Fácil de entender.
+  
+- El restablecimiento de la cuota disponible al final de una ventana de tiempo unitaria se ajusta a ciertos casos de uso.
+
+Contras:
+
+- Los picos de tráfico en los extremos de una ventana pueden hacer que pasen más peticiones que la cuota permitida.
+  
+# Algoritmo de registro de ventana deslizante
+Como se ha comentado anteriormente, el algoritmo de contador de ventana fija tiene un problema importante: permite que pasen más solicitudes en los bordes de una ventana. El algoritmo soluciona el problema. Funciona de la siguiente manera:
+
+- El algoritmo registra las marcas de tiempo de las solicitudes. Las marcas de tiempo
+normalmente se guardan en una caché, como los conjuntos ordenados de Redis [8].
+
+- Cuando llega una nueva petición, elimina todas las marcas de tiempo desactualizadas.
+Las marcas de tiempo obsoletas se definen como aquellas más antiguas que el inicio de la ventana de tiempo actual.
+
+- Añada la marca de tiempo de la nueva solicitud al registro.
+  
+- Si el tamaño del registro es igual o inferior al recuento permitido, se acepta la solicitud. En caso contrario, se rechaza.
+- 
+Explicamos el algoritmo con un ejemplo, como se muestra en la Figura 4-10.
+
+(Imagen)Un primer plano de texto sobre fondo blanco Descripción automáticamente
+generado automáticamente.
+
+En este ejemplo, el limitador de velocidad permite 2 solicitudes por minuto. Normalmente,
+Las marcas de tiempo de Linux se almacenan en el registro.Sin embargo, en nuestro ejemplo se utiliza una representación del tiempo legible para el ser humano para una mejor legibilidad.
+
+- El registro está vacío cuando llega una nueva petición a la 1:00:01. Por lo tanto, la solicitud está permitida.
+  
+- Cuando llega una nueva solicitud a las 1:00:30, se inserta la marca de tiempo 1:00:30 en el registro. Después de la inserción, el tamaño del registro es 2, no mayor que el recuento permitido.Por lo tanto, la solicitud está permitida.
+  
+- Una nueva solicitud llega a las 1:00:50, y la marca de tiempo se inserta en el registro.Tras la inserción, el tamaño del registro es 3, mayor que el tamaño 2 permitido.
+Por lo tanto, esta solicitud se rechaza aunque la marca de tiempo permanece en el registro.
+
+- A la 1:01:40 llega una nueva solicitud. Las solicitudes en el intervalo [1:00:40,1:01:40) están dentro del intervalo de tiempo más reciente, pero las solicitudes enviadas antes de la 1:00:40 están obsoletas. Dos marcas de tiempo obsoletas, 1:00:01 y 1:00:30, se eliminan del registro.Tras la operación de eliminación, el tamaño del registro pasa a ser 2; por lo tanto la solicitud es aceptada.
