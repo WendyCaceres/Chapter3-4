@@ -659,7 +659,7 @@ dominio: mensajería
 
 descriptores:
 
- - clave: tipo_mensaje
+  -clave: tipo_mensaje
    
  valor: marketing
  
