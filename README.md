@@ -268,7 +268,7 @@ Paso 3 Profundizar en el diseño: 10 - 25 minutos
 Paso 4 Conclusión: 3 - 5 minutos
 
 
-#### CAPÍTULO 4: DISEÑO DE UN LIMITADOR
+# CAPÍTULO 4: DISEÑO DE UN LIMITADOR
 
 En un sistema de red, un limitador de tasa se utiliza para controlar la tasa de tráfico enviado por un cliente o un servicio. En el mundo HTTP, un limitador de tasa limita el número de solicitudes de clientes que se pueden enviar durante un periodo determinado. Si el número de API supera el umbral definido por el limitador de velocidad, todas las
 exceso de llamadas se bloquean. He aquí algunos ejemplos:
