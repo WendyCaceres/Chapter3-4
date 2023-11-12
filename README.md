@@ -416,7 +416,7 @@ hay suficientes fichas en el cubo. La figura 4-5 explica cómo funciona.
 
 - Si hay suficientes fichas, sacamos una ficha por cada solicitud y hacemos pasar la solicitud.
 
--Si no hay suficientes fichas, la solicitud se descarta.
+- Si no hay suficientes fichas, la solicitud se descarta.
 
 (Mapa)Detalle de un mapa Descripción generada automáticamente
 
