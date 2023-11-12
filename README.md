@@ -722,6 +722,6 @@ La Figura 4-13 presenta un diseño detallado del sistema.
 última solicitud de la caché de Redis. Basándose en la respuesta, el
 decide:
 
-- si la solicitud no tiene limitación de velocidad, se reenvía a los servidores API.
+- Si la solicitud no tiene limitación de velocidad, se reenvía a los servidores API.
 
-- si la solicitud está limitada en cuanto a velocidad, el limitador de velocidad devuelve al cliente el error 429 too many requests al cliente. Mientras tanto, la solicitud se descarta o se reenvía a la cola.
+- Si la solicitud está limitada en cuanto a velocidad, el limitador de velocidad devuelve al cliente el error 429 too many requests al cliente. Mientras tanto, la solicitud se descarta o se reenvía a la cola.
