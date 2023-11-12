@@ -320,3 +320,57 @@ en el código de la aplicación?
 Entrevistador: Es una decisión de diseño que depende de ti.
 
 Candidato: ¿Tenemos que informar a los usuarios que están limitados?
+
+Entrevistador: Sí.
+
+Requisitos
+
+He aquí un resumen de los requisitos del sistema:
+
+- Limitar con precisión las peticiones excesivas.
+  
+- Baja latencia. El limitador de velocidad no debe ralentizar el tiempo de respuesta HTTP.
+  
+- Utilizar la menor cantidad de memoria posible.
+  
+- Limitación de velocidad distribuida. El limitador de velocidad puede compartirse entre varios servidores o procesos.
+  
+- Manejo de excepciones. Mostrar excepciones claras a los usuarios cuando sus solicitudes
+están estrangulados.
+
+- Alta tolerancia a fallos. Si hay algún problema con el limitador de velocidad (por
+ejemplo, un servidor de caché se desconecta), no afecta a todo el sistema.
+
+# Paso 2 - Proponer un diseño de alto nivel y conseguir apoyo
+Mantengamos las cosas sencillas y utilicemos un modelo básico de cliente y servidor para la comunicación.
+
+# ¿Dónde colocar el limitador de velocidad?
+
+Intuitivamente, se puede implementar un limitador de velocidad en el cliente o en el servidor.
+
+- Implementación del lado del cliente. En general, el cliente es un lugar poco fiable para imponer la limitación de velocidad porque las peticiones del cliente pueden ser falsificadas por actores maliciosos. Además, es posible que no tengamos control sobre la implementación del cliente.
+  
+- Implementación del lado del servidor. La Figura 4-1 muestra un limitador de velocidad que se coloca en el lado del servidor.
+  
+(Imagen) Una imagen que contiene la descripción del reloj generada automáticamente
+
+Además de las implementaciones del lado del cliente y del lado del servidor, existe una alternativa. En lugar de colocar un limitador de velocidad en los servidores API, creamos un middleware limitador, que regula las peticiones a sus API, como se muestra en la Figura 4-2.
+
+(Captura) Captura de pantalla de un teléfono móvil Descripción generada automáticamente
+
+Utilicemos un ejemplo de la Figura 4-3 para ilustrar cómo funciona la limitación de velocidad en este diseño. Supongamos que nuestra API permite 2 solicitudes por segundo, y un cliente envía 3 peticiones al servidor en un segundo. Las dos primeras
+enrutadas a los servidores API. Sin embargo, el middleware limitador de velocidad estrangula la tercera solicitud y devuelve un código de estado HTTP 429. La respuesta HTTP 429 indica que el usuario ha enviado demasiadas solicitudes.
+
+(Captura) Captura de pantalla de un teléfono móvil Descripción generada automáticamente
+
+Los microservicios en la nube [4] se han hecho muy populares y la limitación de la tasa se suele implementarse en un componente llamado pasarela API. La pasarela API
+es un servicio totalmente gestionado que soporta limitación de tasa, terminación SSL
+autenticación, listas blancas de IP, servicio de contenido estático, etc. Por ahora, sólo necesitamos saber que la pasarela API es un middleware que admite la limitación de velocidad.
+
+Al diseñar un limitador de velocidad, una pregunta importante que debemos hacernos es:
+¿dónde debe implementarse el limitador de velocidad, en el servidor o en una pasarela?
+No hay una respuesta absoluta. Depende de la pila tecnológica de recursos de ingeniería, prioridades, objetivos, etc. Aquí mostraremos algunas directrices generales:
+
+- Evalúe su pila tecnológica actual, como lenguaje de programación,
+servicio de caché, etc. Asegúrese de que su lenguaje de programación actual es
+eficiente para implementar la limitación de velocidad en el lado del servidor.
