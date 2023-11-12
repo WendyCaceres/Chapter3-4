@@ -488,7 +488,7 @@ Contras:
 
 - Una ráfaga de tráfico llena la cola de solicitudes antiguas y, si no se procesan a tiempo, las solicitudes recientes se verán afectadas por una limitación.
   
--Hay dos parámetros en el algoritmo. Puede que no sea fácil sintonizar ellos adecuadamente.
+- Hay dos parámetros en el algoritmo. Puede que no sea fácil sintonizar ellos adecuadamente.
 
 # Algoritmo de contador de ventana fija
 
