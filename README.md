@@ -266,3 +266,57 @@ Paso 2 Proponer un diseño de alto nivel y conseguir su aceptación: 10 - 15 min
 Paso 3 Profundizar en el diseño: 10 - 25 minutos
 
 Paso 4 Conclusión: 3 - 5 minutos
+
+
+#### CAPÍTULO 4: DISEÑO DE UN LIMITADOR
+
+En un sistema de red, un limitador de tasa se utiliza para controlar la tasa de tráfico enviado por un cliente o un servicio. En el mundo HTTP, un limitador de tasa limita el número de solicitudes de clientes que se pueden enviar durante un periodo determinado. Si el número de API supera el umbral definido por el limitador de velocidad, todas las
+exceso de llamadas se bloquean. He aquí algunos ejemplos:
+
+- Un usuario no puede escribir más de 2 posts por segundo.
+  
+- Puede crear un máximo de 10 cuentas al día desde la misma dirección IP.
+  
+- No se pueden reclamar recompensas más de 5 veces por semana desde el mismo dispositivo.
+mismo dispositivo.
+
+En este capítulo, se le pide que diseñe un limitador de velocidad. Antes de comenzar el diseño, primero veremos los beneficios de usar un limitador de tasa API:
+
+- Prevenir la inanición de recursos causada por ataques de Denegación de Servicio (DoS) [1]. Casi todas las API publicadas por grandes empresas tecnológicas aplican algún tipo de limitación de velocidad. Por ejemplo, Twitter limita el número de tweets a 300 cada 3
+horas [2]. Las API de Google Docs tienen el siguiente límite por defecto: 300 por usuario
+por 60 segundos para solicitudes de lectura [3]. Un limitador de velocidad evita los ataques ya sean intencionados o no, bloqueando el exceso de llamadas.
+
+- Reducción de costes. Limitar el exceso de peticiones significa menos servidores y asignar más recursos a las API de alta prioridad. La limitación de la tasa es extremadamente importante para las empresas que utilizan API de terceros de pago. Por ejemplo, se cobra por llamada para las siguientes API externas: comprobar el crédito, realizar un pago, recuperar historiales médicos, etc.Limitar el número de llamadas es
+esencial para reducir costes.
+
+- Evitar la sobrecarga de los servidores. Para reducir la carga de los servidores
+para filtrar el exceso de peticiones causadas por bots o el mal comportamiento de los
+de los usuarios.
+
+# Paso 1 - Comprender el problema y establecer alcance del diseño
+
+El limitador de velocidad puede implementarse utilizando diferentes algoritmos, cada uno con sus pros y contras. Las interacciones entre un entrevistador y un candidato
+ayudan a aclarar el tipo de limitador de velocidad que queremos construir.
+
+Candidato: ¿Qué tipo de limitador de velocidad vamos a diseñar? ¿Es un limitador de velocidad del lado del cliente o del lado del servidor?
+
+Entrevistador: Buena pregunta. Nos centraremos en el limitador de velocidad de la API del servidor.
+
+Candidato: ¿El limitador de velocidad estrangula las solicitudes de API basándose en la IP, el ID de usuario u otras propiedades?
+
+Entrevistador: El limitador de velocidad debe ser lo suficientemente flexible para admitir diferentes conjuntos de reglas de limitación.
+
+Candidato: ¿Cuál es la escala del sistema? ¿Está pensado para una nueva empresa o para una empresa con una gran base de usuarios?
+
+Entrevistador: El sistema debe ser capaz de gestionar un gran número de solicitudes.
+
+Candidato: ¿Funcionará el sistema en un entorno distribuido?
+
+Entrevistador: Sí.
+
+Candidato: ¿El limitador de velocidad es un servicio independiente o debe implementarse
+en el código de la aplicación?
+
+Entrevistador: Es una decisión de diseño que depende de ti.
+
+Candidato: ¿Tenemos que informar a los usuarios que están limitados?
