@@ -109,3 +109,62 @@ Entrevistador: 5000
 Candidato: ¿Cuál es el volumen de tráfico?
 
 Entrevistador: 10 millones de usuarios activos diarios (DAU)
+
+Candidato: ¿El feed puede contener imágenes, vídeos o sólo texto?
+
+Entrevistador: Puede contener archivos multimedia, tanto imágenes como vídeos.
+
+Como se mostraron algunas preguntas de ejemplo que puedes hacerle a tu entrevistador. Es importante comprender los requisitos y aclarar ambigüedades.
+
+# Paso 2 - Proponer un diseño de alto nivel y conseguir su aceptación
+
+En este paso, nuestro objetivo es desarrollar un diseño de alto nivel y llegar a un acuerdo con el entrevistador sobre el diseño. Es una buena idea colaborar con el
+entrevistador durante el proceso.
+
+- Elabore un plan inicial para el diseño. Pedir opiniones. Trate
+a su entrevistador como a un compañero de equipo y trabajen juntos. A muchos buenos entrevistadores les encanta hablar y participar.
+- Dibuja diagramas de caja con los componentes clave en la pizarra o en papel. Este
+puede incluir clientes (móvil/web), API, servidores web, almacenes de datos, caché,
+CDN, cola de mensajes, etc.
+- Haz cálculos para evaluar si tu proyecto se ajusta a las restricciones de escala.
+limitaciones de escala. Piensa en voz alta. Comunique a su entrevistador si
+con su entrevistador si es necesario realizar cálculos retrospectivos.
+
+Si es posible, repasa algunos casos de uso concretos. Esto le ayudará a enmarcar
+el diseño de alto nivel. También es probable que los casos de uso le ayuden a
+descubrir casos extremos que aún no ha considerado.
+
+¿Deberíamos incluir aquí los puntos finales de la API y el esquema de la base de datos? Esto depende del problema. Para grandes problemas de diseño como "Diseñar el motor de búsqueda de Google", esto es un poco de nivel demasiado bajo. Para un problema como diseñar el backend para un juego de poker multijugador, esto es un juego justo. Comunique
+con tu entrevistador.
+
+# Ejemplo
+
+Utilicemos "Diseñar un sistema de noticias" para demostrar cómo enfocar
+el diseño de alto nivel. En este caso no es necesario que entienda
+cómo funciona realmente el sistema. Todos los detalles se explicarán en el capítulo 11.
+
+A alto nivel, el diseño se divide en dos flujos: publicación de feeds y creación de feeds de noticias.
+
+- Publicación de feeds: cuando un usuario publica una publicación, se muestran los datos correspondientes escritos en el caché/base de datos, y la publicación se completará en la lista de amigos
+  
+- Construcción del feed de noticias: el feed de noticias se construye agregando las publicaciones de los amigos en orden cronológico inverso.
+
+La Figura 3-1 y la Figura 3-2 presentan diseños de alto nivel para la publicación de feeds de noticias, respectivamente.
+
+(Imagen)Primer plano de un mapa Descripción generada automáticamente
+
+(Imagen)Primer plano de un logotipo Descripción generada automáticamente
+
+# Paso 3 - Profundización en el diseño
+
+En este paso, usted y su entrevistador ya deberían haber alcanzado los
+los siguientes objetivos: 
+
+- Acordar los objetivos generales y el alcance de las funciones.
+- Esbozar un plan de alto nivel para el diseño general.
+- Haber recibido comentarios del entrevistador sobre el diseño de alto nivel.
+- Tener algunas ideas iniciales sobre las áreas en las que centrarse en la inmersión profunda basada en sus comentarios.
+  
+Trabajará con el entrevistador para identificar y priorizar los componentes
+de la arquitectura. Cabe destacar que cada entrevista es diferente.
+A veces, la entrevistadora puede dar pistas de que le gusta centrarse en
