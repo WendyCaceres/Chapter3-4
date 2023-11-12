@@ -725,3 +725,65 @@ decide:
 - Si la solicitud no tiene limitación de velocidad, se reenvía a los servidores API.
 
 - Si la solicitud está limitada en cuanto a velocidad, el limitador de velocidad devuelve al cliente el error 429 too many requests al cliente. Mientras tanto, la solicitud se descarta o se reenvía a la cola.
+
+# Limitador de velocidad en un entorno distribuido
+
+Construir un limitador de velocidad que funcione en un entorno de un solo servidor no es
+difícil. Sin embargo, escalar el sistema para que admita varios servidores y
+servidores y subprocesos simultáneos es otra historia. Existen dos retos:
+
+- Condición de carrera
+  
+- Problemas de sincronización
+  
+# Condición de carrera
+
+Como se discutió anteriormente, el limitador de velocidad funciona de la siguiente manera en el alto nivel:
+
+- Lee el valor del contador de Redis.
+  
+- Comprueba si (contador + 1) supera el umbral.
+  
+- Si no, incrementa el valor del contador en 1 en Redis.
+  
+Las condiciones de carrera pueden ocurrir en un entorno altamente concurrente como se muestra en la Figura 4-14.
+
+(Imagen)Una imagen que contiene la captura de pantalla Descripción generada automáticamente.
+
+Supongamos que el valor del contador en Redis es 3. Si dos peticiones concurrentes leen
+el valor del contador antes de que cualquiera de ellas escriba el valor de vuelta, cada una incrementará el contador en uno y lo escribirá de nuevo sin comprobar el otro hilo.
+Ambas peticiones (hilos) creen que tienen el valor correcto del contador 4. Sin embargo, el valor correcto del contador debería ser 5.
+
+Los bloqueos son la solución más obvia para resolver la condición de carrera. Sin embargo
+los bloqueos ralentizarán significativamente el sistema. Dos estrategias son
+comúnmente utilizadas para resolver el problema: el script Lua [13] y la estructura de datos ordenados en Redis [8]. Los lectores interesados en estas estrategias pueden consultar los materiales de referencia correspondientes [8] [13].
+
+# Problema de sincronización
+
+La sincronización es otro factor importante a tener en cuenta en un entorno distribuido. Para dar soporte a millones de usuarios, un servidor limitador de velocidad podría no ser suficiente para gestionar el tráfico. Cuando se utilizan varios servidores limitadores de velocidad es necesaria la sincronización. Por ejemplo, en la parte izquierda de la Figura 4-15 el cliente 1 envía peticiones al limitador de velocidad 1, y el cliente 2 envía peticiones al limitador de velocidad 2. Como la capa web no tiene estado, los clientes pueden enviar solicitudes a un limitador de velocidad diferente, como se muestra a la derecha de la Figura 4-15. Si no hay sincronización, el limitador de velocidad 1 no contiene ningún dato sobre el cliente 2. Por lo tanto, el
+limitador de velocidad no puede funcionar correctamente.
+
+(Imagen)Una imagen que contiene texto, mapa Descripción generada automáticamente.
+
+Una posible solución es utilizar sesiones pegajosas que permitan a un cliente enviar
+tráfico al mismo limitador de velocidad. Esta solución no es aconsejable porque no es
+escalable ni flexible. Un enfoque mejor es utilizar almacenes de datos
+centralizados como Redis. El diseño se muestra en la Figura 4-16.
+
+(Mapa)Primer plano de un mapa Descripción generada automáticamente
+
+# Optimización del rendimiento
+
+La optimización del rendimiento es un tema común en las entrevistas de diseño de sistemas. Cubriremos dos áreas a mejorar.
+
+En primer lugar, la configuración de varios centros de datos es crucial para un limitador de velocidad porque la latencia es alta para los usuarios situados lejos del centro de datos. La mayoría de los proveedores de servicios en la nube construyen muchas ubicaciones de servidores de borde en todo el mundo. Por ejemplo,
+desde el 20/5-2020, Cloudflare tiene 194 servidores de borde distribuidos geográficamente
+[14]. El tráfico se enruta automáticamente al servidor de borde más cercano para reducir
+latencia.
+
+(Plano)Un primer plano de un logotipo Descripción generada automáticamente
+
+En segundo lugar, sincronice los datos con un modelo de consistencia eventual. Si no
+modelo de consistencia eventual, consulte la sección "Consistencia" del
+en el "Capítulo 6: Diseño de un almacén de claves y valores".
+
