@@ -559,3 +559,67 @@ Las marcas de tiempo de Linux se almacenan en el registro.Sin embargo, en nuestr
 Por lo tanto, esta solicitud se rechaza aunque la marca de tiempo permanece en el registro.
 
 - A la 1:01:40 llega una nueva solicitud. Las solicitudes en el intervalo [1:00:40,1:01:40) están dentro del intervalo de tiempo más reciente, pero las solicitudes enviadas antes de la 1:00:40 están obsoletas. Dos marcas de tiempo obsoletas, 1:00:01 y 1:00:30, se eliminan del registro.Tras la operación de eliminación, el tamaño del registro pasa a ser 2; por lo tanto la solicitud es aceptada.
+
+Ventajas:
+
+- La limitación de velocidad implementada por este algoritmo es muy precisa. En cualquier
+ventana móvil, las solicitudes no superarán el límite de velocidad.
+
+Contras:
+
+- El algoritmo consume mucha memoria porque, aunque se rechace una solicitud, su marca de tiempo puede seguir almacenada en la memoria.
+  
+# Algoritmo de contador de ventana deslizante
+
+El algoritmo de contador de ventana deslizante es un enfoque híbrido que combina
+el contador de ventana fija y el registro de ventana deslizante. El algoritmo puede
+implementado mediante dos enfoques diferentes. Explicamos uno
+implementación en esta sección y proporcionar referencia para el resto
+al final de la sección. La Figura 4-11 ilustra cómo funciona este
+algoritmo.
+
+(Imagen)Una imagen que contiene la descripción del reloj generada automáticamente
+
+Supongamos que el limitador de velocidad permite un máximo de 7 peticiones por minuto, y
+hay 5 peticiones en el minuto anterior y 3 en el minuto actual. Para
+una nueva solicitud que llega en una posición del 30% en el minuto actual, el
+número de solicitudes en la ventana móvil se calcula mediante la siguiente fórmula:
+
+- Peticiones en la ventana actual + peticiones en la ventana anterior * solapamiento
+porcentaje de la ventana rodante y la ventana anterior
+
+- Utilizando esta fórmula, obtenemos 3 + 5 * 0,7% = 6,5 solicitudes. Dependiendo del
+caso de uso, el número puede redondearse hacia arriba o hacia abajo. En nuestro ejemplo
+se redondea a 6.
+
+Dado que el limitador de velocidad permite un máximo de 7 solicitudes por minuto, la solicitud actual puede pasar. Sin embargo, el límite se alcanzará tras
+de recibir una petición más.
+
+Debido a la limitación de espacio, no discutiremos la otra implementación
+aquí. Los lectores interesados pueden consultar el material de referencia [9]. Este
+algoritmo no es perfecto. Tiene pros y contras.
+
+Pros
+
+- Suaviza los picos de tráfico porque la tasa se basa en la tasa media de la ventana anterior.
+
+- Uso eficiente de la memoria.
+  
+Contras
+
+- Sólo funciona para una ventana retrospectiva no tan estricta. Es una aproximación de
+la tasa real porque asume que las peticiones en la ventana anterior están
+distribuidas uniformemente. Sin embargo, este problema puede no ser tan grave como parece. Según los experimentos realizados por Cloudflare [10], sólo el 0,003% de
+las solicitudes se permiten incorrectamente o tienen una tasa limitada entre 400 millones de solicitudes.
+
+# Arquitectura de alto nivel
+
+La idea básica de los algoritmos de limitación de tasa es simple. A alto nivel, necesitamos un contador para llevar la cuenta de cuántas solicitudes se envían desde el mismo usuario, dirección IP, etc. Si el contador es mayor que el límite, la solicitud se rechaza.
+
+¿Dónde almacenamos los contadores? Utilizar la base de datos no es una buena idea debido a lentitud de acceso al disco. Se elige la caché en memoria porque es rápida y
+soporta una estrategia de expiración basada en el tiempo. Por ejemplo, Redis [11] es una
+es una opción popular para implementar la limitación de velocidad. Es un almacén en memoria que ofrece dos comandos: INCR y EXPIRE.
+
+- INCR: Incrementa el contador almacenado en 1.
+  
+- EXPIRE: Establece un tiempo de espera para el contador. Si el tiempo de espera expira, el contador se borra automáticamente.
