@@ -374,3 +374,65 @@ No hay una respuesta absoluta. Depende de la pila tecnológica de recursos de in
 - Evalúe su pila tecnológica actual, como lenguaje de programación,
 servicio de caché, etc. Asegúrese de que su lenguaje de programación actual es
 eficiente para implementar la limitación de velocidad en el lado del servidor.
+
+-Identifique el algoritmo de limitación de velocidad que se ajuste a las necesidades de su empresa. Cuando implementas todo en el lado del servidor, tiene el control total del algoritmo. Sin embargo, su elección puede verse limitada si utiliza una pasarela de terceros.
+
+- Si ya ha utilizado una arquitectura de microservicios y ha incluido una pasarela de API en el diseño para realizar la autenticación, listas blancas de IP, etc., puede añadir un limitador de velocidad a la pasarela de API.
+
+- Construir su propio servicio de limitación de velocidad lleva tiempo. Si no dispone de
+recursos de ingeniería suficientes para implementar un limitador de velocidad, una pasarela de API comercial es una mejor opción.
+
+# Algoritmos de limitación de velocidad
+
+La limitación de velocidad puede implementarse utilizando diferentes algoritmos, y cada uno de ellos tiene sus pros y sus contras. Aunque este capítulo no se centra en
+algoritmos, entenderlos a alto nivel ayuda a elegir el algoritmo o combinación de algoritmos que se ajuste a nuestros casos de uso. He aquí una lista de
+algoritmos populares:
+
+- Token bucket
+  
+- Cubo de fugas
+  
+- Contador de ventana fija
+
+- Registro de ventanas deslizantes
+  
+- Contador de ventana móvil
+  
+# Algoritmo Token Bucket
+
+El algoritmo token bucket es muy utilizado para limitar la velocidad. Es sencillo,
+bien entendido y comúnmente utilizado por las empresas de Internet. Tanto Amazon
+[5] y Stripe [6] utilizan este algoritmo para limitar sus peticiones API.
+
+El algoritmo de token bucket funciona de la siguiente manera:
+
+- Un token bucket es un contenedor que tiene una capacidad predefinida. Los tokens se
+en el cubo a un ritmo preestablecido periódicamente. Una vez que el cubo está lleno, no se añaden más fichas. Como se muestra en la Figura 4-4, la capacidad del cubo es de 4 fichas.El rellenador pone 2 fichas en el cubo cada segundo. Una vez que el cubo esté lleno, las fichas adicionales rebosarán.
+
+(Imagen)Un cuadro que contiene el juego, la tabla Descripción generada automáticamente
+
+- Cada solicitud consume una ficha. Cuando llega una solicitud, se comprueba si
+hay suficientes fichas en el cubo. La figura 4-5 explica cómo funciona.
+
+- Si hay suficientes fichas, sacamos una ficha por cada solicitud y hacemos pasar la solicitud.
+
+-Si no hay suficientes fichas, la solicitud se descarta.
+
+(Mapa)Detalle de un mapa Descripción generada automáticamente
+
+La Figura 4-6 ilustra cómo funcionan el consumo de fichas, la recarga y la lógica de limitación de velocidad. En este ejemplo, el tamaño del cubo de fichas es 4, y la tasa de recarga es de 4 por 1 minuto.
+
+(Imagen)Primer plano de un texto sobre fondo blanco Descripción generada automáticamente
+
+El algoritmo del cubo de fichas toma dos parámetros:
+
+- Tamaño del cubo: número máximo de fichas que puede contener el cubo.
+  
+- Tasa de relleno: número de fichas que se introducen en el cubo cada segundo.
+  
+¿Cuántos cubos necesitamos? Esto varía y depende de las reglas de limitación de la tasa. He aquí algunos ejemplos.
+
+- Suele ser necesario tener distintos buckets para distintos puntos finales de API. Por ejemplo, si a un usuario se le permite hacer 1 publicación por segundo, añadir
+150 amigos por día, y como 5 mensajes por segundo, 3 cubos son necesarios para
+cada usuario.
+
