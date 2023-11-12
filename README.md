@@ -74,15 +74,15 @@ en la pizarra o en un papel. Puede que las necesites más adelante.
 ¿Qué tipo de preguntas hacer? Haga preguntas para entender exactamente
 requisitos exactos. Aquí tienes una lista de preguntas que te ayudarán a empezar:
 
--¿Qué funciones específicas vamos a crear?
+- ¿Qué funciones específicas vamos a crear?
 
--¿Cuántos usuarios tiene el producto?
+- ¿Cuántos usuarios tiene el producto?
 
--[¿Cuál es la velocidad de crecimiento prevista por la empresa? ¿Cuáles son las
-¿Cuáles son las escalas previstas en 3 meses, 6 meses y un año?]
+- ¿Cuál es la velocidad de crecimiento prevista por la empresa? 
+¿Cuáles son las escalas previstas en 3 meses, 6 meses y un año?
 
--[¿Cuál es la pila tecnológica de la empresa? ¿Qué servicios existentes
-para simplificar el diseño?]
+- ¿Cuál es la pila tecnológica de la empresa? ¿Qué servicios existentes
+para simplificar el diseño?
 
 ## Ejemplo
 
