@@ -623,3 +623,70 @@ es una opción popular para implementar la limitación de velocidad. Es un almac
 - INCR: Incrementa el contador almacenado en 1.
   
 - EXPIRE: Establece un tiempo de espera para el contador. Si el tiempo de espera expira, el contador se borra automáticamente.
+
+La Figura 4-12 muestra la arquitectura de alto nivel para la limitación de velocidad, y ésta funciona de la siguiente manera:
+
+(Mapa)Un primer plano de un mapa Descripción generada automáticamente
+
+- El cliente envía una solicitud al middleware de limitación de velocidad.
+  
+- El cliente envía una solicitud al middleware de limitación de velocidad.
+correspondiente en Redis y comprueba si se ha alcanzado el límite o no.
+
+- Si se alcanza el límite, se rechaza la solicitud.
+  
+- Si no se alcanza el límite, la solicitud se envía a los servidores API. Mientras tanto,
+el sistema incrementa el contador y lo guarda de nuevo en Redis.
+
+# Paso 3 - Diseño en profundidad
+
+El diseño de alto nivel de la Figura 4-12 no responde a las siguientes
+preguntas:
+
+- ¿Cómo se crean las reglas de limitación de velocidad? ¿Dónde se almacenan las reglas?
+  
+- ¿Cómo se gestionan las peticiones con limitación de velocidad?
+  
+En esta sección, primero responderemos a las preguntas relativas a las reglas de limitación de velocidad y, a continuación, repasaremos las estrategias para gestionar las solicitudes con limitación de velocidad. Por último, discutiremos la limitación de velocidad en entornos distribuidos, un diseño detallado,
+optimización del rendimiento y supervisión.
+
+# Reglas de limitación de tarifas
+
+Lyft ha abierto su componente de limitación de velocidad [12]. Nos adentraremos en
+del componente y veremos algunos ejemplos de reglas de limitación de velocidad:
+
+dominio: mensajería
+
+descriptores:
+
+ - clave: tipo_mensaje
+   
+ valor: marketing
+ 
+ límite_de_tarifa:
+ 
+ unidad: día
+ 
+ peticiones_por_unidad 5
+ 
+En el ejemplo anterior, el sistema está configurado para permitir un máximo de 5
+mensajes de marketing al día. He aquí otro ejemplo:
+
+dominio: auth
+
+descriptores:
+
+   -clave: auth_type
+   
+ valor: login
+ 
+ rate_limit:
+ 
+ unidad: minuto
+ 
+ peticiones_por_unidad: 5
+ 
+Esta regla indica que los clientes no pueden iniciar sesión más de 5 veces en 1
+minuto. Las reglas se escriben generalmente en archivos de configuración y se guardan en el  disco.
+# Superación del límite de velocidad
+En caso de que una solicitud tenga un límite de velocidad, las API devuelven al cliente un código de respuesta HTTP 429 (demasiadas solicitudes) al cliente. Dependiendo de los casos de uso, podemos poner en cola las solicitudes de velocidad limitada para procesarlas más tarde. Por ejemplo, si algunos pedidos están limitados por sobrecarga del sistema, podemos pedir para procesarlos más tarde.
