@@ -167,4 +167,64 @@ los siguientes objetivos:
   
 Trabajará con el entrevistador para identificar y priorizar los componentes
 de la arquitectura. Cabe destacar que cada entrevista es diferente.
-A veces, la entrevistadora puede dar pistas de que le gusta centrarse en
+A veces, la entrevistadora puede dar pistas de que le gusta centrarse en el diseño de alto nivel. A veces, en el caso de una entrevista con un candidato
+sobre las características de rendimiento del sistema, probablemente
+centrándose en los cuellos de botella y la estimación de recursos. En la mayoría de los casos, el entrevistador puede querer que profundices en los detalles de algunos componentes del sistema. En el caso del acortador de URL, es interesante profundizar en el diseño de la función hash que convierte una URL larga en una corta. Para un sistema de chat, ¿cómo reducir latencia y cómo soportar el estado online/offline son dos temas interesantes.
+
+La gestión del tiempo es esencial, ya que es fácil dejarse llevar por minuciosos
+detalles que no demuestran tus habilidades. Debe estar armado con
+señales que mostrar a tu entrevistador. Intenta no entrar en detalles innecesarios.
+Por ejemplo, hablar en detalle del algoritmo EdgeRank del feed
+Facebook no es lo ideal en una entrevista de diseño de sistemas, ya que requiere mucho tiempo y no demuestra tus capacidad para diseñar un sistema escalable.
+
+# Ejemplo
+
+En este punto, hemos discutido el diseño de alto nivel para un sistema de noticias.
+y el entrevistador está satisfecho con tu propuesta. A continuación
+investigaremos dos de los casos de uso más importantes:
+
+1.  Publicación de noticias
+   
+2.  Recuperación de noticias
+   
+Las figuras 3-3 y 3-4 muestran el diseño detallado de los dos casos de uso,
+que se explicarán en detalle en el Capítulo 11.
+
+(Imagen) Primer plano de un mapa Descripción generada automáticamente
+(Imagen) Primer plano de un mapa Descripción generada automáticamente
+
+# Paso 4 - Conclusión
+
+En este último paso, el entrevistador puede hacerle algunas preguntas de seguimiento
+o darle la libertad de comentar otros puntos adicionales. He aquí algunas
+instrucciones que debe seguir:
+
+- El entrevistador puede pedirle que identifique los cuellos de botella del sistema y
+que comentes posibles mejoras. Nunca diga que su diseño es perfecto y que nada se puede mejorar. Siempre hay algo que mejorar. Esta es una gran oportunidad para mostrar su pensamiento crítico y dejar una buena impresión final.
+
+- Podría ser útil ofrecer al entrevistador una recapitulación de tu diseño. Esto es especialmente importante si has propuesto varias soluciones. Refrescar la memoria del entrevistador puede ser útil después de una larga sesión.
+
+- Es interesante hablar de los casos de error (fallo del servidor, pérdida de red, etc.).
+  
+- Merece la pena mencionar los problemas operativos. ¿Cómo controla las métricas y
+registros de errores? ¿Cómo desplegar el sistema?
+
+- Cómo gestionar la siguiente curva de escala también es un tema interesante. Por ejemplo, si su diseño actual admite 1 millón de usuarios, ¿Qué cambios debe hacer para soportar 10 millones de usuarios?
+  
+- Proponga otras mejoras que necesitaría si dispusiera de más tiempo.
+  
+Para terminar, resumimos una lista de lo que hay que hacer y lo que no hay que hacer.
+
+Lo que hay que hacer: 
+
+- Pide siempre aclaraciones. No dé por sentado que sus suposiciones son correctas.
+  
+- Comprenda los requisitos del problema.
+  
+- No existe ni la respuesta correcta ni la mejor. Una solución diseñada
+para resolver los problemas de una joven startup es diferente de la de una
+empresa consolidada con millones de usuarios. Asegúrese de comprender los
+requisitos.
+
+- Haga saber al entrevistador lo que está pensando. Comuníquese con su
+entrevistador en todo momento.
