@@ -690,3 +690,38 @@ Esta regla indica que los clientes no pueden iniciar sesión más de 5 veces en 
 minuto. Las reglas se escriben generalmente en archivos de configuración y se guardan en el  disco.
 # Superación del límite de velocidad
 En caso de que una solicitud tenga un límite de velocidad, las API devuelven al cliente un código de respuesta HTTP 429 (demasiadas solicitudes) al cliente. Dependiendo de los casos de uso, podemos poner en cola las solicitudes de velocidad limitada para procesarlas más tarde. Por ejemplo, si algunos pedidos están limitados por sobrecarga del sistema, podemos pedir para procesarlos más tarde.
+
+# Cabeceras del limitador de velocidad
+
+¿Cómo sabe un cliente si está siendo limitado? ¿Y cómo sabe
+el número de solicitudes restantes permitidas antes de ser
+antes de ser estrangulado? La respuesta está en las cabeceras de respuesta HTTP. El limitador de velocidad devuelve las siguientes cabeceras HTTP a los clientes:
+
+X-Ratelimit-Remaining: El número restante de peticiones permitidas dentro de
+la ventana.
+
+X-Ratelimit-Limit: Indica cuántas llamadas puede hacer el cliente por ventana de
+ventana.
+
+X-Ratelimit-Retry-After: El número de segundos que hay que esperar hasta poder
+volver a realizar una petición sin ser estrangulado.
+
+Cuando un usuario ha enviado demasiadas peticiones, aparece un error 429 too many requests y X-Ratelimit-Retry-After.
+
+# Diseño detallado
+
+La Figura 4-13 presenta un diseño detallado del sistema.
+
+(Mapa)Detalle de un mapa Descripción generada automáticamente
+
+- Las reglas se almacenan en el disco. Los trabajadores extraen con frecuencia reglas del disco y las almacenan en la caché.
+  
+- Cuando un cliente envía una solicitud al servidor, ésta se envía primero al middleware limitador de velocidad.
+
+- El middleware limitador de velocidad carga las reglas de la caché. Obtiene contadores y
+última solicitud de la caché de Redis. Basándose en la respuesta, el
+decide:
+
+-si la solicitud no tiene limitación de velocidad, se reenvía a los servidores API.
+
+-si la solicitud está limitada en cuanto a velocidad, el limitador de velocidad devuelve al cliente el error 429 too many requests al cliente. Mientras tanto, la solicitud se descarta o se reenvía a la cola.
