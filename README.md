@@ -852,11 +852,11 @@ Materiales de referencia
 
 https://cloud.google.com/solutions/rate-limiting-strategies-techniques
 
-H[2] Límites de velocidad en Twitter: 
+[2] Límites de velocidad en Twitter: 
 
 https://developer.twitter.com/en/docs/basics/ratelimits
 
-Y[3] Límites de uso de Google Docs: https://developers.google.com/docs/api/limits
+[3] Límites de uso de Google Docs: https://developers.google.com/docs/api/limits
 
 [4] Microservicios de IBM: https://www.ibm.com/cloud/learn/microservices
 
