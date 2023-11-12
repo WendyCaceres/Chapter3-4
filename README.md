@@ -787,3 +787,61 @@ En segundo lugar, sincronice los datos con un modelo de consistencia eventual. S
 modelo de consistencia eventual, consulte la sección "Consistencia" del
 en el "Capítulo 6: Diseño de un almacén de claves y valores".
 
+# Supervisión
+
+Una vez instalado el limitador de velocidad, es importante recopilar datos analíticos
+para comprobar si el limitador de velocidad es eficaz. Principalmente, queremos 
+asegurarnos de que:
+
+- El algoritmo de limitación de velocidad es eficaz.
+  
+- Las reglas de limitación de velocidad son efectivas.
+  
+Por ejemplo, si las reglas de limitación de tarifas son demasiado estrictas, muchas solicitudes válidas abandonó. En este caso, queremos relajar un poco las reglas. En otro
+ejemplo, nos damos cuenta de que nuestro limitador de velocidad se vuelve ineficaz cuando se produce un aumento repentino del tráfico, como en el caso de las ventas flash. En este caso, podemos sustituir el algoritmo para soportar el tráfico de ráfagas. Token bucket es una buena opción en este caso.
+
+# Paso 4 - Conclusión
+
+En este capítulo, hemos discutido diferentes algoritmos de limitación de velocidad y sus
+pros/contras. Los algoritmos discutidos incluyen:
+
+- Token bucket
+  
+- Cubo de fuga
+  
+- Ventana fija
+  
+- Ventana deslizante de registro
+  
+- Contador de ventana móvil
+  
+A continuación, analizamos la arquitectura del sistema, el limitador de velocidad en un entorno distribuido, la optimización del rendimiento y la supervisión. Como en cualquier
+pregunta de la entrevista de diseño de sistemas, hay puntos de conversación adicionales que puedes tocar si el tiempo lo permite:
+
+- Limitación de velocidad dura frente a suave.
+  
+- Duro: el número de solicitudes no puede superar el umbral.
+  
+- Suave: las solicitudes pueden superar el umbral durante un breve periodo de tiempo.
+  
+- Limitación de velocidad a diferentes niveles. En este capítulo, sólo hemos hablado de
+en el nivel de aplicación (HTTP: capa 7). Es posible aplicar
+en otras capas. Por ejemplo, puede aplicar limitación de velocidad por direcciones IP utilizando Iptables [15](IP: capa 3). Nota: El modelo Open Systems
+Interconexión de Sistemas Abiertos (modelo OSI) tiene 7 capas [16]: Capa 1: capa física
+física, Capa 2: Capa de enlace de datos, Capa 3: Capa de red, Capa 4: Capa de transporte, Capa 5: Capa de sesión, Capa 6: Capa de Presentación, Capa 7: Capa de Aplicación:
+Capa de aplicación.
+
+- Evite las limitaciones de velocidad. Diseñe su cliente con las mejores prácticas:
+  
+- Utilice la caché del cliente para evitar hacer frecuentes llamadas a la API.
+  
+- Entender el límite y no enviar demasiadas peticiones en un corto espacio de tiempo.
+corto.
+
+- Incluya código para capturar excepciones o errores para que su cliente pueda recuperarse
+recuperarse de las excepciones.
+
+- Añade suficiente tiempo de recuperación para reintentar la lógica.
+  
+Enhorabuena por haber llegado hasta aquí. Ahora date una palmadita en la espalda.
+Buen trabajo!!.
