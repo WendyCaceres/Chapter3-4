@@ -191,6 +191,7 @@ Las figuras 3-3 y 3-4 muestran el diseño detallado de los dos casos de uso,
 que se explicarán en detalle en el Capítulo 11.
 
 (Imagen) Primer plano de un mapa Descripción generada automáticamente
+
 (Imagen) Primer plano de un mapa Descripción generada automáticamente
 
 # Paso 4 - Conclusión
@@ -228,3 +229,40 @@ requisitos.
 
 - Haga saber al entrevistador lo que está pensando. Comuníquese con su
 entrevistador en todo momento.
+
+- Sugiera varios enfoques si es posible.
+
+- Una vez que esté de acuerdo con su entrevistador sobre el plan, entre en detalles sobre cada componente. Diseña primero los componentes más importantes.
+  
+- Comunique sus ideas al entrevistador. Un buen entrevistador trabajara con usted como
+equipo.
+
+- No se rinda nunca.
+  
+Qué no hacer: 
+
+- Estar mal preparado para las preguntas típicas de las entrevistas.
+  
+- No te lances a buscar una solución sin aclarar los requisitos y los supuestos.
+
+- No entre en demasiados detalles sobre un solo componente al principio. Presenta primero el diseño de alto nivel y luego ve más allá.
+  
+- Si te quedas atascado, no dudes en pedir ayuda.
+  
+- Vuelve a comunicarte. No pienses en silencio.
+  
+- No creas que has terminado la entrevista una vez que has presentado el diseño. No acabo hasta que tu entrevistador te diga que has terminado. Pida opiniones pronto y a menudo.
+
+# Asignación de tiempo a cada paso
+
+Las preguntas de la entrevista de diseño de sistemas suelen ser muy amplias, y 45 minutos o una hora no bastan para abarcar todo el diseño. La gestión del tiempo es esencial. ¿Cuánto tiempo debe dedicar a cada paso? Lo que sigue es
+para distribuir el tiempo en una entrevista de 45 minutos. Recuerde que se trata de una estimación aproximada y que el tiempo real
+depende del alcance del problema y de los requisitos del entrevistador.
+
+Paso 1 Comprender el problema y establecer el alcance del diseño: 3 - 10 minutos
+
+Paso 2 Proponer un diseño de alto nivel y conseguir su aceptación: 10 - 15 minutos
+
+Paso 3 Profundizar en el diseño: 10 - 25 minutos
+
+Paso 4 Conclusión: 3 - 5 minutos
