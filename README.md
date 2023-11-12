@@ -45,3 +45,67 @@ Una mano se levantó en el fondo de la clase.
 "¿Sí, Jimmy?", respondió el profesor.
 
 "Porque tenía HAMBRE".
+
+"Muy bien Jimmy".
+
+Durante toda su infancia, Jimmy siempre ha sido el primero en contestar
+preguntas en la clase. Cada vez que el profesor hace una pregunta, siempre hay un niño en el aula al que le encanta responder a la pregunta, sin
+no importa si sabe la respuesta o no. Ese es Jimmy.
+
+
+Jimmy es un gran estudiante. Se enorgullece de saber todas las respuestas rápidamente. En exámenes, suele ser la primera persona en terminar las preguntas. Es la opción preferida por los profesores para cualquier competencia académica.
+
+
+NO seas como Jimmy.
+
+
+En una entrevista de diseño de sistemas, dar una respuesta rápidamente sin pensar no te da puntos extra. Responder sin comprender a fondo
+los requisitos es una gran señal de alarma, ya que la entrevista no es un concurso de trivialidades. No hay una respuesta correcta.
+
+
+Por lo tanto, no te lances a dar una solución. Ve más despacio. Reflexione profundamente y haga preguntas para aclarar los requisitos y suposiciones. Esto es sumamente importante.
+
+
+Como ingenieros, nos gusta resolver problemas difíciles y lanzarnos al diseño final; sin embargo, es probable que este enfoque le lleve a diseñar el sistema equivocado. Una de las habilidades más importantes de un ingeniero es hacer las preguntas correctas, hacer las suposiciones adecuadas y reunir toda la información necesaria para construir un sistema. Por lo tanto, no tengas miedo de hacer preguntas.
+
+Cuando haces una pregunta, el entrevistador puede responder directamente o pedirte que hagas tus suposiciones. En este último caso, anota
+en la pizarra o en un papel. Puede que las necesites más adelante.
+
+¿Qué tipo de preguntas hacer? Haga preguntas para entender exactamente
+requisitos exactos. Aquí tienes una lista de preguntas que te ayudarán a empezar:
+
+-¿Qué funciones específicas vamos a crear?
+
+-¿Cuántos usuarios tiene el producto?
+
+-¿Cuál es la velocidad de crecimiento prevista por la empresa? ¿Cuáles son las
+¿Cuáles son las escalas previstas en 3 meses, 6 meses y un año?
+
+-¿Cuál es la pila tecnológica de la empresa? ¿Qué servicios existentes
+para simplificar el diseño?
+
+# Ejemplo
+
+Si le piden que diseñe un sistema de noticias, debe hacer preguntas que le ayuden a aclarar los requisitos.La conversación entre usted y
+entrevistador podría ser la siguiente:
+
+Candidato: ¿Se trata de una aplicación móvil? ¿O una aplicación web? ¿O ambas?
+
+Entrevistador: Ambas.
+
+Candidato: ¿Cuáles son las características más importantes del producto?
+
+Entrevistador: La posibilidad de publicar y ver las noticias de tus amigos.
+
+Candidato: ¿Las noticias están ordenadas en orden cronológico inverso o en un
+particular? El orden particular significa que cada publicación se le asigna un peso diferente. Por ejemplo, las publicaciones de tus amigos cercanos son más importantes que las publicaciones de un grupo.
+
+Entrevistador: Para simplificar las cosas, supongamos que el feed está ordenado por orden cronológico inverso.
+
+Candidato: ¿Cuántos amigos puede tener un usuario?
+
+Entrevistador: 5000
+
+Candidato: ¿Cuál es el volumen de tráfico?
+
+Entrevistador: 10 millones de usuarios activos diarios (DAU)
